@@ -1,10 +1,9 @@
 import logo from "./logo.svg"
 import "./App.css"
 import React, { useState } from 'react';
-import Hi from "./components/textToMusic"
-
+import TextToMusic from "./components/textToMusic"
 function App() {
-  return <Hi/>
+  return <div><TextToMusic/></div>
 }
 
 export default App
