@@ -9,19 +9,24 @@ function App() {
     setInputValue(event.target.value);
   };
 
-  
-  return <div 
-  className="text-red-500">
+  const handleClick = () => {
+    setOutput(inputValue);
+  };
+
+  return <div
+    className="text-red-500">
     <h1>Input Lyrics</h1>
-    <div className="text-black-500">
-    <input
+    <div style={{ padding: '20px' }} className="text-black">
+      <input
         type="text"
         value={inputValue}
         onChange={handleInputChange}
         placeholder="Enter your lyrics"
       /> <br></br>
     </div>
-    <button>Submit </button> <br></br>
+    <div className="text-blue-500">
+      <button onclick="functionToExecute()">Submit</button> <br></br>
+    </div>
   </div>
 }
 
