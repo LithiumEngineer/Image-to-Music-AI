@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const Hi = () => {
+export const TextToMusic = () => {
     const [inputValue, setInputValue] = useState('');
     const [output, setOutput] = useState('');
     const handleInputChange = (event) => {
@@ -17,7 +17,7 @@ export const Hi = () => {
     return <div 
     className="text-red-500">
       <h1>Input Lyrics</h1>
-      <div className="text-black-500">
+      <div style={{ padding: '20px' }} className="text-black">
       <input
           type="text"
           value={inputValue}
@@ -29,4 +29,4 @@ export const Hi = () => {
       <br></br>
     </div>
 }
-export default Hi;
+export default TextToMusic;
