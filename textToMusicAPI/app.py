@@ -6,12 +6,19 @@ from typing import List
 app = FastAPI()
 
 class DataModel(BaseModel):
-    key: List[str]
+    inputs: List[str]
+    seconds: float
+    temperature: float
+    cfg: float
+    use_sampling: bool
+    top_k: int
+    top_p: float
+
 
 @app.post("/api/data")
 async def post_data(data: DataModel):
     try:
-        Helper.process(data.key)  # Call the process method from Helper
+        Helper.process(data.inputs)  # Call the process method from Helper
         return {"received": data.dict()}
     except ValidationError as e:
         raise HTTPException(status_code=422, detail=e.errors())
