@@ -3,13 +3,13 @@ import scipy
 
 class Helper:
     @staticmethod
-    def process():
+    def process(inputList):
         print("hi")
         processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
         model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
 
         inputs = processor(
-            text=["Candy pop ice cream", "EDM music in D major with tempo 200 bpm, and a I-IV-V-I chord progression"],
+            text=inputList,
             padding=True,
             return_tensors="pt",
         )
