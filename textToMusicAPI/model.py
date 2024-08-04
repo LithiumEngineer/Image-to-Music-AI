@@ -4,7 +4,7 @@ import scipy
 class Helper:
     @staticmethod
     def process(inputList, seconds, cfg):
-        print("hi")
+        print("hi", inputList, seconds, cfg)
         processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
         model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
 

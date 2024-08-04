@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const Homepage = () => {
   const navigate = useNavigate();
-  const [inputList, setInputList] = useState(["Jazz", "Blues"]);
+  const [inputList, setInputList] = useState(["A song based on the plants vs. zombies theme, in E minor with a slow tempo, sad music, EDM"]);
 
   const handleSubmit = (e) => {
     console.log("SUBMITTED");

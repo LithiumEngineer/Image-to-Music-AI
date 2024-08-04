@@ -14,7 +14,7 @@ const Results = () => {
       try {
         const response = await axios.post('http://localhost:8000/api/data', {
           inputs: inputList,
-          seconds: 10.0,
+          seconds: 1.0,
           cfg: 3.0
         });
         setApiData(response.data);
@@ -26,6 +26,7 @@ const Results = () => {
     };
 
     if (inputList) {
+      console.log(inputList);
       fetchData();
     }
   }, [inputList]);
