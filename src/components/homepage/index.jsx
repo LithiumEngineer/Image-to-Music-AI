@@ -10,7 +10,7 @@ export const Homepage = () => {
   const navigate = useNavigate()
   const inputList = useRef([""])
   const [uploadingImage, setUploadingImage] = useState("NOTHING")
-  const [inputtingCustom, setInputtingCustom] = useState(true);
+  const [notInputtingCustom, setNotInputtingCustom] = useState(true);
   const [formData, setFormData] = useState({
     key: '',
     genre: '',
