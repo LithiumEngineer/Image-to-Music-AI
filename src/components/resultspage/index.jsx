@@ -12,7 +12,6 @@ const Results = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("hi");
         const response = await axios.post('http://localhost:8000/api/data', {
           inputs: inputList,
           seconds: 10.0,
