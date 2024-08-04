@@ -10,20 +10,20 @@ export const Homepage = () => {
   const navigate = useNavigate()
   const inputList = useRef([""])
   const [uploadingImage, setUploadingImage] = useState("NOTHING")
-  const [inputtingCustom, setInputtingCustom] = useState(true);
+  const [inputtingCustom, setInputtingCustom] = useState(true)
   const [formData, setFormData] = useState({
-    key: '',
-    genre: '',
-    tempo: '',
-    otherFeatures: ''
-  });
+    key: "",
+    genre: "",
+    tempo: "",
+    otherFeatures: "",
+  })
 
   const [fileUrl, setFileUrl] = useState()
   const blobSasUrl = `https://${process.env.REACT_APP_ACCOUNT_NAME}.blob.core.windows.net/hackthesix?${process.env.REACT_APP_SAS_TOKEN}`
 
   const onNext = async (e) => {
     e.preventDefault()
-    setInputtingCustom(false);
+    setInputtingCustom(false)
   }
 
   const handleSubmit = async (e) => {
@@ -43,7 +43,9 @@ export const Homepage = () => {
       )
       inputList.current = [response.data.description.captions[0].text]
       e.preventDefault()
-      navigate("/results", { state: { inputList: inputList.current, formData: formData } })
+      navigate("/results", {
+        state: { inputList: inputList.current, formData: formData },
+      })
     } catch (error) {
       console.log("there is an error with describing the image: ", error)
     }
@@ -66,12 +68,12 @@ export const Homepage = () => {
   }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData({
       ...formData,
-      [name]: value
-    });
-  };
+      [name]: value,
+    })
+  }
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -80,8 +82,7 @@ export const Homepage = () => {
     onDrop,
   })
 
-  return (
-    inputtingCustom ? 
+  return inputtingCustom ? (
     <div>
       <div
         className={`w-screen h-screen bg-[#DBBB9E] ${
@@ -161,12 +162,17 @@ export const Homepage = () => {
         </div>
       )}
     </div>
-    :
+  ) : (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <div
+        onClick={handleSubmit}
+        className="bg-white p-8 rounded shadow-md w-full max-w-md"
+      >
         <h2 className="text-2xl font-bold mb-4">Music Form</h2>
         <div className="mb-4">
-          <label htmlFor="key" className="block text-gray-700 font-bold mb-2">Key</label>
+          <label htmlFor="key" className="block text-gray-700 font-bold mb-2">
+            Key
+          </label>
           <input
             type="text"
             id="key"
@@ -177,7 +183,9 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="genre" className="block text-gray-700 font-bold mb-2">Genre</label>
+          <label htmlFor="genre" className="block text-gray-700 font-bold mb-2">
+            Genre
+          </label>
           <input
             type="text"
             id="genre"
@@ -188,7 +196,9 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Tempo</label>
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">
+            Tempo
+          </label>
           <input
             type="number"
             id="tempo"
@@ -199,7 +209,12 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="otherFeatures" className="block text-gray-700 font-bold mb-2">Other Features</label>
+          <label
+            htmlFor="otherFeatures"
+            className="block text-gray-700 font-bold mb-2"
+          >
+            Other Features
+          </label>
           <textarea
             id="otherFeatures"
             name="otherFeatures"
@@ -208,8 +223,14 @@ export const Homepage = () => {
             className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        <button type="submit" onSubmit={handleSubmit} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Submit</button>
-      </form>
+        <button
+          type="submit"
+          onSubmit={handleSubmit}
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   )
 }
