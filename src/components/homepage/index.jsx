@@ -24,7 +24,7 @@ export const Homepage = () => {
 
   const onNext = async (e) => {
     e.preventDefault()
-    setInputtingCustom(false)
+    setNotInputtingCustom(false)
   }
 
   const handleSubmit = async (e) => {
@@ -83,7 +83,7 @@ export const Homepage = () => {
     onDrop,
   })
 
-  return inputtingCustom ? (
+  return notInputtingCustom ? (
     <div>
       <div
         className={`w-screen h-screen bg-[#DBBB9E] ${
@@ -165,7 +165,7 @@ export const Homepage = () => {
     </div>
   ) : (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+      <div onClick={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4">Additional Optional Fields</h2>
         <div className="mb-4">
           <label htmlFor="key" className="block text-gray-700 font-bold mb-2">
