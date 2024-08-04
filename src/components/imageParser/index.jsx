@@ -42,7 +42,7 @@ const ImageParser = () => {
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "image/png": [".png", "jpeg"],
+      "image/png": ["png", "jpeg"],
     },
     onDrop,
   })

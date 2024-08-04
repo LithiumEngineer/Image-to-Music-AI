@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 
 const Results = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const { inputList } = location.state || {}
   const [apiData, setApiData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -21,9 +22,15 @@ const Results = () => {
       )
       const audioUrl = URL.createObjectURL(audioBlob)
       setAudioUrl(audioUrl)
-    } else {
+    } 
+    else {
       console.error("No audio data found in local storage.")
     }
+  }
+
+  const handleClick = (e) => {
+    e.preventDefault()
+    navigate("/")
   }
 
   useEffect(() => {
@@ -37,6 +44,7 @@ const Results = () => {
         const audioBase64 = response.data.audio_base64
         localStorage.setItem("generatedAudio", audioBase64)
         setLoading(false)
+        handlePlay()
       } catch (error) {
         setError(error)
         setLoading(false)
@@ -55,26 +63,26 @@ const Results = () => {
   return (
     <div>
       <div className="w-screen h-screen" style={{ backgroundColor: "#DBBB9E" }}>
-        <img
+        <div className="pt-3" onClick={handleClick}       >
+                <img
           src="Main_Logo.jpg"
-          className="w-[75px] h-[75px] rounded-3xl ml-3 mt-3"
+          className="w-[75px] h-[75px] rounded-3xl ml-5 mt-3 hover:shadow-lg"
         ></img>
+        </div>
+        <div className="flex items-center justify-center h-screen">
         <div
-          className="w-2/3 h-2/3 flex rounded-3xl items-center justify-center"
+          className="w-2/3 h-2/3 flex flex-col rounded-3xl items-center justify-center"
           style={{ backgroundColor: "#E5DDD0" }}
-        ></div>
-        <h1>Results Page</h1>
-        <p>
-          Received data:{" "}
-          {apiData ? JSON.stringify(apiData) : "No data received"}
-        </p>
-        <button onClick={handlePlay}>Play Audio</button>
+        >
+
         {audioUrl && (
           <audio controls>
             <source src={audioUrl} type="audio/wav" />
             Your browser does not support the audio element.
           </audio>
         )}
+        </div>
+              </div>
       </div>
     </div>
   )
