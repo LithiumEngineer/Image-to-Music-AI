@@ -1,6 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export const Homepage = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    console.log("SUBMITTED");
+    e.preventDefault();
+    navigate('/results');
+  };
+
   return (
     <div>
       <div className="w-screen h-screen" style={{ backgroundColor: "#DBBB9E" }}>
@@ -22,10 +31,19 @@ export const Homepage = () => {
             </p>
             <div
             className="w-[300px] h-[100px] flex rounded-3xl items-center justify-center mt-20"
-            style={{ backgroundColor: "#262727" }}
-          ><img src="Main_Logo.jpg" 
-          className='w-[270px] h-[70px] rounded-3xl'>
-          </img></div>
+            style={{ backgroundColor: "#E5DDD0" }}
+          >
+            <div className='w-[286px] h-[80px] flex items-center justify-center rounded-3x1'
+            style={{ backgroundColor: "#E5DDD0" }}>
+            <img src="file_logo.png" 
+          className='w-[80px] h-[80px] rounded-3xl'>
+          </img>
+          </div>
+          </div>
+            <div className='w-[120px] h-[60px] flex items-center justify-center rounded-3x1 mt-10 rounded-3x1'
+            style={{ backgroundColor: "#262727" }}>
+            <button onClick={handleSubmit} type="submit" className="text-white-800">Submit</button>
+            </div>
           </div>
         </div>
       </div>

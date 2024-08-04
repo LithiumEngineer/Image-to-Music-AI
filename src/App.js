@@ -1,10 +1,17 @@
-import logo from "./logo.svg"
-import "./App.css"
-import React, { useState } from 'react';
-import TextToMusic from "./components/textToMusic"
-import Homepage from "./components/homepage"
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Homepage from './components/homepage';
+import Results from './components/resultspage';
+
 function App() {
-  return <div><Homepage/></div>
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/results" element={<Results />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
