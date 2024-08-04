@@ -6,7 +6,7 @@ import { Loading } from "react-loading-dot"
 const Results = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { inputList } = location.state || {}
+  const { inputList, formData } = location.state || {}
   const [fileUrl, setFileUrl] = useState()
   const [apiData, setApiData] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -36,10 +36,17 @@ const Results = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(formData)
+      inputList.push("Please make the song in key " + formData.key + ".")
+      inputList.push("Please make the song with genre " + formData.genre + ".")
+      inputList.push(
+        "Please make the song at tempo " + formData.tempo + " beats per minute."
+      )
+      inputList.push(formData.otherFeatures)
       try {
         const response = await axios.post("http://localhost:8000/api/data", {
           inputs: inputList,
-          seconds: 3.0,
+          seconds: formData.duration,
           cfg: 3.0,
         })
         const audioBase64 = response.data.audio_base64
