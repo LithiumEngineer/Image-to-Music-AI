@@ -7,6 +7,7 @@ const Results = () => {
   const location = useLocation()
   const navigate = useNavigate()
   const { inputList } = location.state || {}
+  const [fileUrl, setFileUrl] = useState()
   const [apiData, setApiData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -52,10 +53,13 @@ const Results = () => {
     }
 
     if (inputList) {
-      console.log(inputList)
       fetchData()
     }
   }, [inputList])
+
+  useEffect(() => {
+    setFileUrl(location.state.fileUrl)
+  }, [location.state.fileUrl])
 
   if (loading)
     return (
@@ -86,10 +90,13 @@ const Results = () => {
             className="w-[75px] h-[75px] rounded-3xl ml-5 mt-3 hover:shadow-lg"
           ></img>
         </div>
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex mt-20 justify-center h-screen">
           <div
-            className="w-2/3 h-2/3 flex flex-col rounded-3xl items-center justify-center"
-            style={{ backgroundColor: "#E5DDD0" }}
+            className="w-2/3 h-2/3 flex justify-around items-end pb-10 rounded-3xl"
+            style={{
+              backgroundImage: `url(${fileUrl})`,
+              backgroundSize: "cover",
+            }}
           >
             {audioUrl && (
               <audio controls>
