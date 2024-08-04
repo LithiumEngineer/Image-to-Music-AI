@@ -45,7 +45,7 @@ export const Homepage = () => {
       inputList.current = [response.data.description.captions[0].text]
       e.preventDefault()
       navigate("/results", {
-        state: { inputList: inputList.current, formData: formData },
+        state: { inputList: inputList.current, fileUrl, formData: formData },
       })
     } catch (error) {
       console.log("there is an error with describing the image: ", error)

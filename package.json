@@ -15,6 +15,8 @@
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
     "react-icons": "^5.2.1",
+    "react-loader-spinner": "^6.1.6",
+    "react-loading-dot": "^1.0.6",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.14.1",
