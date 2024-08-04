@@ -9,6 +9,20 @@ const Results = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const [audioUrl, setAudioUrl] = useState('');
+
+  const handlePlay = () => {
+    const audioBase64 = localStorage.getItem('generatedAudio');
+    console.log("audio", audioBase64);
+    if (audioBase64) {
+       const audioBlob = new Blob([Uint8Array.from(atob(audioBase64), c => c.charCodeAt(0))], { type: 'audio/wav' });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      setAudioUrl(audioUrl);
+    } else {
+      console.error('No audio data found in local storage.');
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -48,6 +62,13 @@ const Results = () => {
         ></div>
         <h1>Results Page</h1>
         <p>Received data: {apiData ? JSON.stringify(apiData) : "No data received"}</p>
+        <button onClick={handlePlay}>Play Audio</button>
+        {audioUrl && (
+          <audio controls>
+            <source src={audioUrl} type="audio/wav" />
+            Your browser does not support the audio element.
+          </audio>
+        )}
       </div>
     </div>
   );
