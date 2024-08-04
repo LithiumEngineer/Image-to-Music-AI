@@ -10,13 +10,14 @@ export const Homepage = () => {
   const navigate = useNavigate()
   const inputList = useRef([""])
   const [uploadingImage, setUploadingImage] = useState("NOTHING")
-  const [inputtingCustom, setInputtingCustom] = useState(true)
+  const [notInputtingCustom, setNotInputtingCustom] = useState(true);
   const [formData, setFormData] = useState({
-    key: "",
-    genre: "",
-    tempo: "",
-    otherFeatures: "",
-  })
+    key: '',
+    genre: '',
+    tempo: '',
+    duration: '',
+    otherFeatures: ''
+  });
 
   const [fileUrl, setFileUrl] = useState()
   const blobSasUrl = `https://${process.env.REACT_APP_ACCOUNT_NAME}.blob.core.windows.net/hackthesix?${process.env.REACT_APP_SAS_TOKEN}`
@@ -164,11 +165,8 @@ export const Homepage = () => {
     </div>
   ) : (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div
-        onClick={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold mb-4">Music Form</h2>
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">Additional Optional Fields</h2>
         <div className="mb-4">
           <label htmlFor="key" className="block text-gray-700 font-bold mb-2">
             Key
@@ -196,9 +194,7 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">
-            Tempo
-          </label>
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Tempo (BPM)</label>
           <input
             type="number"
             id="tempo"
@@ -209,12 +205,18 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label
-            htmlFor="otherFeatures"
-            className="block text-gray-700 font-bold mb-2"
-          >
-            Other Features
-          </label>
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Duration (in seconds)</label>
+          <input
+            type="number"
+            id="tempo"
+            name="tempo"
+            value={formData.duration}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="otherFeatures" className="block text-gray-700 font-bold mb-2">Other Features</label>
           <textarea
             id="otherFeatures"
             name="otherFeatures"

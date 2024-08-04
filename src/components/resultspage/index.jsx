@@ -44,7 +44,7 @@ const Results = () => {
       try {
         const response = await axios.post("http://localhost:8000/api/data", {
           inputs: inputList,
-          seconds: 3.0,
+          seconds: formData.duration,
           cfg: 3.0,
         })
         const audioBase64 = response.data.audio_base64
