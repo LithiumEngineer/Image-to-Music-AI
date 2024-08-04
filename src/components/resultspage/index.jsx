@@ -1,39 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import axios from "axios"
 
 const Results = () => {
-  const location = useLocation();
-  const { inputList } = location.state || {};
-  const [apiData, setApiData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const location = useLocation()
+  const { inputList } = location.state || {}
+  const [apiData, setApiData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  const [audioUrl, setAudioUrl] = useState("")
+
+  const handlePlay = () => {
+    const audioBase64 = localStorage.getItem("generatedAudio")
+    console.log("audio", audioBase64)
+    if (audioBase64) {
+      const audioBlob = new Blob(
+        [Uint8Array.from(atob(audioBase64), (c) => c.charCodeAt(0))],
+        { type: "audio/wav" }
+      )
+      const audioUrl = URL.createObjectURL(audioBlob)
+      setAudioUrl(audioUrl)
+    } else {
+      console.error("No audio data found in local storage.")
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:8000/api/data', {
+        const response = await axios.post("http://localhost:8000/api/data", {
           inputs: inputList,
           seconds: 1.0,
-          cfg: 3.0
-        });
-        const audioBase64 = response.data.audio_base64;
-        localStorage.setItem('generatedAudio', audioBase64);
-        setLoading(false);
+          cfg: 3.0,
+        })
+        const audioBase64 = response.data.audio_base64
+        localStorage.setItem("generatedAudio", audioBase64)
+        setLoading(false)
       } catch (error) {
-        setError(error);
-        setLoading(false);
+        setError(error)
+        setLoading(false)
       }
-    };
+    }
 
     if (inputList) {
-      console.log(inputList);
-      fetchData();
+      console.log(inputList)
+      fetchData()
     }
-  }, [inputList]);
+  }, [inputList])
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div>Loading...</div>
+  if (error) return <div>Error: {error.message}</div>
 
   return (
     <div>
@@ -47,10 +64,20 @@ const Results = () => {
           style={{ backgroundColor: "#E5DDD0" }}
         ></div>
         <h1>Results Page</h1>
-        <p>Received data: {apiData ? JSON.stringify(apiData) : "No data received"}</p>
+        <p>
+          Received data:{" "}
+          {apiData ? JSON.stringify(apiData) : "No data received"}
+        </p>
+        <button onClick={handlePlay}>Play Audio</button>
+        {audioUrl && (
+          <audio controls>
+            <source src={audioUrl} type="audio/wav" />
+            Your browser does not support the audio element.
+          </audio>
+        )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Results;
+export default Results
