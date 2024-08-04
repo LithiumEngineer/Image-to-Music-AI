@@ -40,9 +40,9 @@ export const Homepage = () => {
           </img>
           </div>
           </div>
-            <div className='w-[120px] h-[60px] flex items-center justify-center rounded-3x1 mt-10 rounded-3x1'
+            <div className='w-[120px] h-[60px] flex items-center justify-center rounded-3x1 mt-10 rounded-3xl'
             style={{ backgroundColor: "#262727" }}>
-            <button onClick={handleSubmit} type="submit" className="text-white-800">Submit</button>
+            <button onClick={handleSubmit} type="submit" className="text-white rounded-3xl">Submit</button>
             </div>
           </div>
         </div>
