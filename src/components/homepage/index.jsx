@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 export const Homepage = () => {
   const navigate = useNavigate();
+  const [inputList, setInputList] = useState(["Jazz", "Blues"]);
 
   const handleSubmit = (e) => {
     console.log("SUBMITTED");
     e.preventDefault();
-    navigate('/results');
+    navigate('/results', { state: { inputList } });
   };
 
   return (

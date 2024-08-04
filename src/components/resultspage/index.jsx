@@ -1,6 +1,10 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 
 const Results = () => {
+  const location = useLocation();
+  const { inputList } = location.state || {};
+
   return (
     <div>
       <div className="w-screen h-screen" style={{ backgroundColor: "#DBBB9E" }}>
