@@ -165,7 +165,7 @@ export const Homepage = () => {
     :
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Music Form</h2>
+        <h2 className="text-2xl font-bold mb-4">Additional Optional Fields</h2>
         <div className="mb-4">
           <label htmlFor="key" className="block text-gray-700 font-bold mb-2">Key</label>
           <input
@@ -189,7 +189,7 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Tempo</label>
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Tempo (BPM)</label>
           <input
             type="number"
             id="tempo"
@@ -200,7 +200,7 @@ export const Homepage = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Duration</label>
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Duration (in seconds)</label>
           <input
             type="number"
             id="tempo"
