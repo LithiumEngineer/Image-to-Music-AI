@@ -15,6 +15,7 @@ export const Homepage = () => {
     key: '',
     genre: '',
     tempo: '',
+    duration: '',
     otherFeatures: ''
   });
 
@@ -194,6 +195,17 @@ export const Homepage = () => {
             id="tempo"
             name="tempo"
             value={formData.tempo}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Duration</label>
+          <input
+            type="number"
+            id="tempo"
+            name="tempo"
+            value={formData.duration}
             onChange={handleChange}
             className="w-full p-2 border border-gray-300 rounded"
           />
