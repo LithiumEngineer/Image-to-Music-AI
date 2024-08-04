@@ -5,7 +5,7 @@ import axios from "axios"
 const Results = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const { inputList } = location.state || {}
+  const { inputList, formData } = location.state || {}
   const [apiData, setApiData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -35,6 +35,11 @@ const Results = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(formData)
+      inputList.append("Please make the song in key " + formData.key + ".")
+      inputList.append("Please make the song with genre " + formData.genre + ".")
+      inputList.append("Please make the song at tempo " + formData.tempo + " beats per minute.")
+      inputList.append(formData.otherFeatures)
       try {
         const response = await axios.post("http://localhost:8000/api/data", {
           inputs: inputList,

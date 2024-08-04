@@ -10,11 +10,23 @@ export const Homepage = () => {
   const navigate = useNavigate()
   const inputList = useRef([""])
   const [uploadingImage, setUploadingImage] = useState("NOTHING")
+  const [inputtingCustom, setInputtingCustom] = useState(true);
+  const [formData, setFormData] = useState({
+    key: '',
+    genre: '',
+    tempo: '',
+    otherFeatures: ''
+  });
 
   const [fileUrl, setFileUrl] = useState()
   const blobSasUrl = `https://${process.env.REACT_APP_ACCOUNT_NAME}.blob.core.windows.net/hackthesix?${process.env.REACT_APP_SAS_TOKEN}`
 
-  const onSubmit = async (e) => {
+  const onNext = async (e) => {
+    e.preventDefault()
+    setInputtingCustom(false);
+  }
+
+  const handleSubmit = async (e) => {
     try {
       const response = await axios.post(
         "https://ht6.cognitiveservices.azure.com//vision/v3.2/describe",
@@ -31,7 +43,7 @@ export const Homepage = () => {
       )
       inputList.current = [response.data.description.captions[0].text]
       e.preventDefault()
-      navigate("/results", { state: { inputList: inputList.current } })
+      navigate("/results", { state: { inputList: inputList.current, formData: formData } })
     } catch (error) {
       console.log("there is an error with describing the image: ", error)
     }
@@ -53,6 +65,14 @@ export const Homepage = () => {
     setUploadingImage("DONE")
   }
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "image/png": [".png", ".jpeg", ".jpg"],
@@ -61,6 +81,7 @@ export const Homepage = () => {
   })
 
   return (
+    inputtingCustom ? 
     <div>
       <div
         className={`w-screen h-screen bg-[#DBBB9E] ${
@@ -122,7 +143,7 @@ export const Homepage = () => {
             {fileUrl && (
               <div className="w-[120px] h-[60px] flex items-center justify-center rounded-3x1 mt-10 rounded-3xl hover:cursor-pointer bg-black border-black hover:border-solid hover:border-4 hover:bg-transparent">
                 <button
-                  onClick={onSubmit}
+                  onClick={onNext}
                   type="submit"
                   className="text-white rounded-3xl"
                 >
@@ -139,6 +160,56 @@ export const Homepage = () => {
           Drop to add image!
         </div>
       )}
+    </div>
+    :
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4">Music Form</h2>
+        <div className="mb-4">
+          <label htmlFor="key" className="block text-gray-700 font-bold mb-2">Key</label>
+          <input
+            type="text"
+            id="key"
+            name="key"
+            value={formData.key}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="genre" className="block text-gray-700 font-bold mb-2">Genre</label>
+          <input
+            type="text"
+            id="genre"
+            name="genre"
+            value={formData.genre}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="tempo" className="block text-gray-700 font-bold mb-2">Tempo</label>
+          <input
+            type="number"
+            id="tempo"
+            name="tempo"
+            value={formData.tempo}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="otherFeatures" className="block text-gray-700 font-bold mb-2">Other Features</label>
+          <textarea
+            id="otherFeatures"
+            name="otherFeatures"
+            value={formData.otherFeatures}
+            onChange={handleChange}
+            className="w-full p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <button type="submit" onSubmit={handleSubmit} className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Submit</button>
+      </form>
     </div>
   )
 }
