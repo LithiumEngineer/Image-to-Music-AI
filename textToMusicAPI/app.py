@@ -8,10 +8,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class DataModel(BaseModel):
@@ -22,8 +22,8 @@ class DataModel(BaseModel):
 @app.post("/api/data")
 async def post_data(data: DataModel):
     try:
-        Helper.process(data.inputs, data.seconds, data.cfg)
-        return {"received": data.dict()}
+        audio_base64 = Helper.process(data.inputs, data.seconds, data.cfg)
+        return {"audio_base64": audio_base64}
     except ValidationError as e:
         raise HTTPException(status_code=422, detail=e.errors())
 

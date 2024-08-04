@@ -17,10 +17,11 @@ const Results = () => {
           seconds: 1.0,
           cfg: 3.0
         });
-        setApiData(response.data);
+        const audioBase64 = response.data.audio_base64;
+        localStorage.setItem('generatedAudio', audioBase64);
+        setLoading(false);
       } catch (error) {
         setError(error);
-      } finally {
         setLoading(false);
       }
     };
