@@ -1,16 +1,18 @@
-import logo from "./logo.svg"
-import "./App.css"
-import React, { useState } from "react"
-import Hi from "./components/textToMusic"
+import React from "react"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Homepage from './components/homepage';
+import Results from './components/resultspage';
 import ImageParser from "./components/imageParser"
 
 function App() {
   return (
-    <>
-      <img src="react.png" className="h-20 w-20" id="reactimg"></img>
-      <ImageParser />
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/results" element={<Results />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
